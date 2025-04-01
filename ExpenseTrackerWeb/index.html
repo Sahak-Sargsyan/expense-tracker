@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Expense Tracker</title>
+</head>
+<body>
+    <script>
+        (function() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                console.log("No token found, redirecting to login.");
+                window.location.href = "login/login.html";
+            } else {
+                console.log("Token found:", token);
+            }
+        })();
+    </script>
+    <header>
+        <div class="header">
+            <div>
+                <h1 id="logo">ExpenseTrack</h1>
+            </div>
+            <div class="user-controls">
+                <span id="welcome-msg">Hello, User</span>
+                <button id="logout-btn">Logout</button>
+                <button class="mode-btn" id="mode-btn">☀️</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="slogan-container">
+                <h1>ExpenseTrack</h1>
+                <p>Stop being looser! Track your expenses</p>
+            </div>
+            <div class="expense-container">
+                <div class="expense-form">
+                    <h2>Add Expense</h2>
+                    <div class="expense-form-container">
+                        <label for="expense-name">Expense Name</label>
+                        <input type="text" name="expense-name" id="expense-name">
+                        <label for="expense-amount">Amount</label>
+                        <input type="number" name="expense-amount" id="expense-amount">
+                    </div>
+                    <div class="expense-form-container">
+                        <label for="expense-category">Category</label>
+                        <select name="expense-category" id="expense-category">
+                            <option selected value="1">🍔 Food</option>
+                            <option value="2">📱 Electronics</option>
+                            <option value="3">🚗 Transportation</option>
+                            <option value="4">✈️ Travel</option>
+                            <option value="5">🎮 Entertainment</option>
+                            <option value="6">💡 Utilities</option>
+                            <option value="7">👨‍⚕️ Healthcare</option>
+                            <option value="8">👤 Personal</option>
+                            <option value="9">📚 Education</option>
+                            <option value="10">📦 Other</option>
+                        </select>
+                        <label for="expense-date">Date</label>
+                        <input type="date" name="expense-date" id="expense-date">
+                    </div>
+                    <div class="expense-form-container">
+                        <button type="submit" class="add-expense-btn" id="add-expense-btn">+ Add Expense</button>
+                    </div>
+                </div>
+                <div class="summary">
+                    <h2>Summary</h2>
+                    <p>Total Expenses</p>
+                    <p id="total-expenses">$0.00</p>
+                    <div class="top-category-info" id="top-category-info">
+                        <div class="top-category-icon" id="top-category-icon"></div>
+                        <div class="top-category-meta">
+                            <h2>Top Category</h2>
+                            <p class="top-category-title" id="top-category-title"></p>
+                            <p class="top-category-amount" id="top-category-amount"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="expense-bottom">
+                <div class="recent-expenses">
+                </div>
+                <div class="chart-container" id="chart-container">
+                    <h3>Expense Chart</h3>
+                    <canvas id="myChart">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
