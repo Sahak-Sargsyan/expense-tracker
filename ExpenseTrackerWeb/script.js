@@ -1,6 +1,10 @@
 if (!localStorage.getItem('access_token')) {
-    // Redirect to login page (adjust the path as needed)
     window.location.href = 'login/login.html';
+}
+
+if (sessionStorage.getItem('mode') === "light"){
+    const body = document.querySelector('body');
+    body.classList.toggle('light-mode');
 }
 
 import {
@@ -20,15 +24,25 @@ const chartContainer = document.getElementById('chart-container');
 let sum = 0;
 
 document.getElementById('mode-btn').addEventListener('click', function(){
+    const mode = sessionStorage.getItem('mode');
+    if (mode === "light"){
+        backgroundDark = false
+    }
+
     const body = document.querySelector('body');
     body.classList.toggle('light-mode');
+    
 
     const modeBtn = document.querySelector('#mode-btn');
     if (backgroundDark) {
         modeBtn.textContent = '🌑';
+        sessionStorage.removeItem("mode");
+        sessionStorage.setItem("mode", "light");
     }
     else {
         modeBtn.textContent = '☀️';
+        sessionStorage.removeItem("mode");
+        sessionStorage.setItem("mode", "dark");
     }
     backgroundDark = !backgroundDark;
 });
@@ -41,7 +55,10 @@ async function renderExpenses(){
     try{
         const expenses = await getAllExpenses();
         expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
-        const slicedExpenses = expenses.slice(expenses.length - 3, expenses.length);
+        let slicedExpenses = expenses;
+        if (expenses.length > 3) {
+            slicedExpenses = expenses.slice(expenses.length - 3);
+        }
 
         for(const expense of slicedExpenses) {
             let category;

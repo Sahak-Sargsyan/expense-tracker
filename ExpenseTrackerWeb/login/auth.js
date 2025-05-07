@@ -34,8 +34,6 @@ document.querySelector('.login form').addEventListener('submit', async (e) => {
 
 async function loginUser(username, password) {
     try {
-        // FastAPI's OAuth2PasswordRequestForm expects form data,
-        // so we send URL-encoded data
         const formData = new URLSearchParams();
         formData.append("username", username);
         formData.append("password", password);
@@ -53,10 +51,8 @@ async function loginUser(username, password) {
             return;
         }
         const data = await res.json();
-        // Store token in localStorage for later use
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('username', username);
-        // Redirect to main application (e.g., index.html)
         window.location.href = "../index.html";
     } catch (error) {index
         console.error("Error during login:", error);
