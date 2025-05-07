@@ -83,8 +83,13 @@ ExpenseTrack is a full‑stack expense tracking application built using FastAPI 
 
 ## Frontend Installation
 
-To run the frontend, simply open the `index.html` file in your browser. This file loads all necessary scripts and styles, so no additional server setup is required for the frontend.
-
+1. **Run a server**
+  ```bash
+  cd ~/ExpenseTracker/ExpenseTrackerWeb
+  python -m http.server 5000
+  ```
+2. **Open `index.html` via the browser**
+  - http://localhost:5000/index.html
 ---
 
 ## Usage
